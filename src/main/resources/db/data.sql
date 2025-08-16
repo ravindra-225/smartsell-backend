@@ -1,17 +1,59 @@
--- Insert default categories
-TRUNCATE TABLE categories RESTART IDENTITY CASCADE;
+-- ============================
+-- 1️⃣ Categories
+-- ============================
+INSERT INTO categories (id, name) VALUES (1, 'Electronics') ON CONFLICT (id) DO NOTHING;
+INSERT INTO categories (id, name) VALUES (2, 'Mobile') ON CONFLICT (id) DO NOTHING;
+INSERT INTO categories (id, name) VALUES (3, 'Books') ON CONFLICT (id) DO NOTHING;
+INSERT INTO categories (id, name) VALUES (4, 'Clothing') ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO categories (name) VALUES ('Electronics');
-INSERT INTO categories (name) VALUES ('Clothing');
-INSERT INTO categories (name) VALUES ('Books');
+-- ============================
+-- 2️⃣ Users
+-- ============================
+INSERT INTO users (id, name, email, password, role) 
+VALUES (1, 'Admin User', 'admin@smartsell.com', '$2a$10$examplehashedpassword', 'ADMIN')
+ON CONFLICT (id) DO NOTHING;
 
+INSERT INTO users (id, name, email, password, role) 
+VALUES (2, 'Test Seller', 'seller@smartsell.com', '$2a$10$examplehashedpassword', 'SELLER')
+ON CONFLICT (id) DO NOTHING;
 
--- Products
+INSERT INTO users (id, name, email, password, role) 
+VALUES (3, 'Test Buyer', 'buyer@smartsell.com', '$2a$10$examplehashedpassword', 'BUYER')
+ON CONFLICT (id) DO NOTHING;
 
-
-INSERT INTO products (title, description, price, location, image_url, category_id)
-VALUES ('Sample Book', 'A great read', 29.99, 'New York', '/images/book.jpg', 3) ON CONFLICT DO NOTHING;
-
-INSERT INTO products (title, description, price, location, image_url, category_id)
-VALUES ('mobile phone', 'High-quality phone apple iphone 16', 160000, 'San Francisco', '/images/phone.jpg', 1)
+-- ============================
+-- 3️⃣ Products
+-- ============================
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('iPhone 16', 'High-quality phone, Apple iPhone 16', 160000, 'San Francisco', '/images/phone.jpg', 2, 2)
 ON CONFLICT (title) DO NOTHING;
+
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('Wireless Headphones', 'High-quality sound', 10000, 'New York', '/images/headphones.jpg', 2, 1)
+ON CONFLICT (title) DO NOTHING;
+
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('The Great Book', 'Must-read book for developers', 499, 'Boston', '/images/book.jpg', 2, 3)
+ON CONFLICT (title) DO NOTHING;
+
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('T-Shirt', 'Comfortable cotton t-shirt', 799, 'Los Angeles', '/images/tshirt.jpg', 2, 4)
+ON CONFLICT (title) DO NOTHING;
+
+-- ============================
+-- 4️⃣ Cart (for buyer)
+-- ============================
+INSERT INTO cart (id, user_id)
+VALUES (1, 3)
+ON CONFLICT (id) DO NOTHING;
+
+-- ============================
+-- 5️⃣ Cart Items
+-- ============================
+INSERT INTO cart_item (id, cart_id, product_id, quantity)
+VALUES (1, 1, 1, 1)
+ON CONFLICT (id) DO NOTHING;
+
+INSERT INTO cart_item (id, cart_id, product_id, quantity)
+VALUES (2, 1, 2, 2)
+ON CONFLICT (id) DO NOTHING;
