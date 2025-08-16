@@ -24,25 +24,37 @@ VALUES (3, 'Test Buyer', 'buyer@smartsell.com', '$2a$10$examplehashedpassword', 
 ON CONFLICT (id) DO NOTHING;
 
 
-
 INSERT INTO products (title, description, price, location, image_url, category_id)
-SELECT 'iPhone 16', 'High-quality phone, Apple iPhone 16', 160000, 'San Francisco', '/images/phone.jpg', id
-FROM categories WHERE name='Mobile'
+VALUES (
+    'Wireless Headphones', 
+    'High-quality sound', 
+    10000, 
+    'New York', 
+    '/images/headphones.jpg', 
+    (SELECT id FROM categories WHERE name='Electronics')
+)
 ON CONFLICT (title) DO NOTHING;
 
 INSERT INTO products (title, description, price, location, image_url, category_id)
-SELECT 'Wireless Headphones', 'High-quality sound', 10000, 'New York', '/images/headphones.jpg', id
-FROM categories WHERE name='Electronics'
+VALUES (
+    'The Great Book', 
+    'Must-read book for developers', 
+    499, 
+    'Boston', 
+    '/images/book.jpg', 
+    (SELECT id FROM categories WHERE name='Books')
+)
 ON CONFLICT (title) DO NOTHING;
 
 INSERT INTO products (title, description, price, location, image_url, category_id)
-SELECT 'The Great Book', 'Must-read book for developers', 499, 'Boston', '/images/book.jpg', id
-FROM categories WHERE name='Books'
-ON CONFLICT (title) DO NOTHING;
-
-INSERT INTO products (title, description, price, location, image_url, category_id)
-SELECT 'T-Shirt', 'Comfortable cotton t-shirt', 799, 'Los Angeles', '/images/tshirt.jpg', id
-FROM categories WHERE name='Clothing'
+VALUES (
+    'T-Shirt', 
+    'Comfortable cotton t-shirt', 
+    799, 
+    'Los Angeles', 
+    '/images/tshirt.jpg', 
+    (SELECT id FROM categories WHERE name='Clothing')
+)
 ON CONFLICT (title) DO NOTHING;
 
 
