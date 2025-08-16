@@ -34,7 +34,7 @@ public class Orders {
     private double totalAmount;
 
     private String status;  // e.g., "PLACED", "CANCELLED", "DELIVERED"
-
+    
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<>();
