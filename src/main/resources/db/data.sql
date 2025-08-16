@@ -32,8 +32,7 @@ VALUES (
     'New York', 
     '/images/headphones.jpg', 
     (SELECT id FROM categories WHERE name='Electronics')
-)
-ON CONFLICT (title) DO NOTHING;
+);
 
 INSERT INTO products (title, description, price, location, image_url, category_id)
 VALUES (
@@ -43,8 +42,7 @@ VALUES (
     'Boston', 
     '/images/book.jpg', 
     (SELECT id FROM categories WHERE name='Books')
-)
-ON CONFLICT (title) DO NOTHING;
+);
 
 INSERT INTO products (title, description, price, location, image_url, category_id)
 VALUES (
@@ -54,8 +52,7 @@ VALUES (
     'Los Angeles', 
     '/images/tshirt.jpg', 
     (SELECT id FROM categories WHERE name='Clothing')
-)
-ON CONFLICT (title) DO NOTHING;
+);
 
 
 
