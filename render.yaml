@@ -1,22 +1,15 @@
 services:
   - type: web
     name: smart-sell-backend
-    env: docker
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/*.jar
+    runtime: docker
+    plan: free
+    buildCommand: ./mvnw clean package -DskipTests
+    startCommand: java -jar app.jar
     envVars:
-      - key: SPRING_DATASOURCE_HOST
+      - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: smart-sell-db
-          property: host
-      - key: SPRING_DATASOURCE_PORT
-        fromDatabase:
-          name: smart-sell-db
-          property: port
-      - key: SPRING_DATASOURCE_DATABASE
-        fromDatabase:
-          name: smart-sell-db
-          property: database
+          property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: smart-sell-db
@@ -25,6 +18,10 @@ services:
         fromDatabase:
           name: smart-sell-db
           property: password
+      - key: SPRING_DATASOURCE_DRIVER_CLASS_NAME
+        value: org.postgresql.Driver
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: update
       - key: JWT_SECRET
         generateValue: true
       - key: SPRING_WEB_RESOURCES_STATIC_LOCATIONS
@@ -40,6 +37,6 @@ services:
 
 databases:
   - name: smart-sell-db
-    databaseName: smart_sell
-    user: smart_sell_user
+    databaseName: smart_sell_db
+    user: smart_sell_db_user
     plan: free
