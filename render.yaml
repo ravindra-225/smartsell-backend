@@ -1,34 +1,37 @@
 services:
   - type: web
     name: smart-sell-backend
-    runtime: docker
-    buildCommand: ""
-    startCommand: ""
+    runtime : docker
+    buildCommand: mvn clean package -DskipTests
+    startCommand: java -jar target/*.jar
     envVars:
-      - key: SPRING_DATASOURCE_URL
+      - key: DB_HOST
         fromDatabase:
           name: smart-sell-db
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
+          property: host
+      - key: DB_PORT
         fromDatabase:
           name: smart-sell-db
-          property: username
-      - key: SPRING_DATASOURCE_PASSWORD
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: smart-sell-db
+          property: database
+      - key: DB_USER
+        fromDatabase:
+          name: smart-sell-db
+          property: user
+      - key: DB_PASSWORD
         fromDatabase:
           name: smart-sell-db
           property: password
       - key: JWT_SECRET
         generateValue: true
-      - key: SPRING_WEB_RESOURCES_STATIC_LOCATIONS
-        value: classpath:/static/,classpath:/static/images/
-      - key: UPLOAD_DIR
-        value: /tmp/images
-      - key: SERVER_PORT
-        value: 8080
     disk:
       name: storage
       mountPath: /tmp
       sizeGB: 1
+
 databases:
   - name: smart-sell-db
     databaseName: smart_sell
