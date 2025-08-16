@@ -1,26 +1,30 @@
-# Use an official OpenJDK runtime as the base image
-FROM openjdk:17-jdk-slim
+# Build Stage
+FROM openjdk:17-jdk-slim AS builder
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Copy the Maven wrapper and pom.xml to leverage caching
+# Copy the Maven wrapper, pom.xml, and source code
 COPY pom.xml mvnw ./
 COPY .mvn .mvn
+COPY src src
 
 # Make mvnw executable
 RUN chmod +x ./mvnw
 
-# Copy the source code
-COPY src src
-
 # Build the application
 RUN ./mvnw clean package -DskipTests
 
-# Copy the built JAR file to the working directory
-COPY target/*.jar app.jar
+# Runtime Stage
+FROM openjdk:17-jdk-slim
 
-# Expose the port your app runs on (matches server.port)
+# Set the working directory
+WORKDIR /app
+
+# Copy the JAR file from the builder stage
+COPY --from=builder /app/target/*.jar app.jar
+
+# Expose the port
 EXPOSE 8080
 
 # Run the JAR file
