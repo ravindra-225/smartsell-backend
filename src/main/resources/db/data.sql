@@ -25,20 +25,20 @@ ON CONFLICT (id) DO NOTHING;
 
 
 
-INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
-VALUES ('iPhone 16', 'High-quality phone, Apple iPhone 16', 160000, 'San Francisco', '/images/phone.jpg', 2, 2)
+INSERT INTO products (title, description, price, location, image_url, category_id)
+VALUES ('iPhone 16', 'High-quality phone, Apple iPhone 16', 160000, 'San Francisco', '/images/phone.jpg', 2)
 ON CONFLICT (title) DO NOTHING;
 
-INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
-VALUES ('Wireless Headphones', 'High-quality sound', 10000, 'New York', '/images/headphones.jpg', 2, 1)
+INSERT INTO products (title, description, price, location, image_url, category_id)
+VALUES ('Wireless Headphones', 'High-quality sound', 10000, 'New York', '/images/headphones.jpg',  1)
 ON CONFLICT (title) DO NOTHING;
 
-INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
-VALUES ('The Great Book', 'Must-read book for developers', 499, 'Boston', '/images/book.jpg', 2, 3)
+INSERT INTO products (title, description, price, location, image_url, category_id)
+VALUES ('The Great Book', 'Must-read book for developers', 499, 'Boston', '/images/book.jpg', 3)
 ON CONFLICT (title) DO NOTHING;
 
-INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
-VALUES ('T-Shirt', 'Comfortable cotton t-shirt', 799, 'Los Angeles', '/images/tshirt.jpg', 2, 4)
+INSERT INTO products (title, description, price, location, image_url,  category_id)
+VALUES ('T-Shirt', 'Comfortable cotton t-shirt', 799, 'Los Angeles', '/images/tshirt.jpg', 4)
 ON CONFLICT (title) DO NOTHING;
 
 
