@@ -8,4 +8,8 @@ INSERT INTO categories (name) VALUES ('Books');
 
 
 INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
-VALUES ('Sample Book', 'A great read', 29.99, 'New York', '/images/book.jpg', 1, 1) ON CONFLICT DO NOTHING;
+VALUES ('Sample Book', 'A great read', 29.99, 'New York', '/images/book.jpg', 1, 3) ON CONFLICT DO NOTHING;
+
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('mobile phone', 'High-quality phone apple iphone 16', 160000, 'San Francisco', '/images/phone.jpg', 1, 1)
+ON CONFLICT (title) DO NOTHING;
