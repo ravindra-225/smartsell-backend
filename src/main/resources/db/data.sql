@@ -1,0 +1,11 @@
+-- Insert default categories
+INSERT INTO categories (name) VALUES ('Electronics');
+INSERT INTO categories (name) VALUES ('Clothing');
+INSERT INTO categories (name) VALUES ('Books');
+
+
+-- Products
+
+
+INSERT INTO products (title, description, price, location, image_url, seller_id, category_id)
+VALUES ('Sample Book', 'A great read', 29.99, 'New York', '/images/book.jpg', 1, 1) ON CONFLICT DO NOTHING;
